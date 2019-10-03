@@ -27,7 +27,10 @@ class Person(object):
         '''
         # Only called if infection attribute is not None.
         # TODO:  Finish this method. Should return a Boolean
-        pass
+        if random.randint(1, 100) > 10*self.mortality_rate:
+            return True
+        else:
+            return False
 
 
 ''' These are simple tests to ensure that you are instantiating your Person class correctly. '''
