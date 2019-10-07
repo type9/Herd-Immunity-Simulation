@@ -4,7 +4,6 @@ from person import Person
 from logger import Logger
 from virus import Virus
 
-
 class Simulation(object):
     ''' Main class that will run the herd immunity simulation program.
     Expects initialization parameters passed as command line arguments when file is run.
@@ -68,8 +67,17 @@ class Simulation(object):
 
         # Use the attributes created in the init method to create a population that has
         # the correct intial vaccination percentage and initial infected.
-        pass
-
+        num_initial_vacc = round(self.vacc_percentage * pop_size)
+        if initial_infected + num_initial_vacc > pop_size: # checks for edge case
+            return False
+        for x in range(pop_size):
+            if x < num_initial_vacc:
+                self.population.append(Person(x, True)) # adds correct number of initial vaccinated
+            elif x < num_initial_vacc + intitial_infected:
+                self.population.append(Person(x, False, self.virus)) # after adding vaccinated it adds infected
+            else:
+                self.population.append(Person(x, False)) # after adding infected it fills the rest with unvaccinated
+        return self.population
     def _simulation_should_continue(self):
         ''' The simulation should only end if the entire population is dead
         or everyone is vaccinated.
@@ -78,7 +86,10 @@ class Simulation(object):
                 bool: True for simulation should continue, False if it should end.
         '''
         # TODO: Complete this helper method.  Returns a Boolean.
-        pass
+        for peson in self.population:
+            if person.is_alive == True:
+                return True
+        return False
 
     def run(self):
         ''' This method should run the simulation until all requirements for ending
@@ -97,7 +108,7 @@ class Simulation(object):
         while should_continue:
         # TODO: for every iteration of this loop, call self.time_step() to compute another
         # round of this simulation.
-        print('The simulation has ended after {time_step_counter} turns.'.format(time_step_counter))
+        print(f'The simulation has ended after {time_step_counter} turns.')
         pass
 
     def time_step(self):
