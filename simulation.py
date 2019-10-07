@@ -171,7 +171,7 @@ class Simulation(object):
         # to reset self.newly_infected back to an empty list.
         for i in self.newly_infected:
             self.population[i].infected = self.virus
-        self.newly_infected:
+        self.newly_infected = list()
 
 
 if __name__ == "__main__":
