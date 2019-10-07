@@ -160,8 +160,8 @@ class Simulation(object):
             #     Simulation object's newly_infected array, so that their .infected
             #     attribute can be changed to True at the end of the time step.
         # TODO: Call logger method during this method.
-        if random_person.infection == None: # if not infect, person is healthy therefore set as infected
-            random_person.infection = person.infection # spreads infections
+        if (random_person.infection == None) and (not random_person.is_vaccinated): # if not infect, person is unvaccinated, add to list to infect
+            self.newly_infect.append(random_person._id)
 
     def _infect_newly_infected(self):
         ''' This method should iterate through the list of ._id stored in self.newly_infected
