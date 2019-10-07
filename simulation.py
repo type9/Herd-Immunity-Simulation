@@ -4,6 +4,7 @@ from person import Person
 from logger import Logger
 from virus import Virus
 
+TOTAL_INTERACTIONS = 100
 class Simulation(object):
     ''' Main class that will run the herd immunity simulation program.
     Expects initialization parameters passed as command line arguments when file is run.
@@ -71,10 +72,10 @@ class Simulation(object):
         if initial_infected + num_initial_vacc > pop_size: # checks for edge case
             return False
         for x in range(pop_size):
-            if x < num_initial_vacc:
-                self.population.append(Person(x, True)) # adds correct number of initial vaccinated
+            if x < intiial_infected:
+                self.population.append(Person(x, True)) # adds correct number of initial infect
             elif x < num_initial_vacc + intitial_infected:
-                self.population.append(Person(x, False, self.virus)) # after adding vaccinated it adds infected
+                self.population.append(Person(x, False, self.virus)) # after adding infected it adds vaccinated
             else:
                 self.population.append(Person(x, False)) # after adding infected it fills the rest with unvaccinated
         return self.population
@@ -123,7 +124,16 @@ class Simulation(object):
                 increment interaction counter by 1.
             '''
         # TODO: Finish this method.
-        pass
+        for person in self.population:
+            if (not person.infection == None) and person.is_alive: # finds infected people that are alive
+                for x in range(TOTAL_INTERACTIONS): # runs TOTAL_INTERACTIONS times
+                    random_person_index = int()
+                    raondom_person_is_dead = True
+                    while random_person_is_dead: # loops if the randomly selected person is dead
+                        random_person_index = random.randint(0, (pop_size - 1))
+                        if self.population[random_person_index].is_alive: # checks if the randomly selected person is alive, and stops looping if so
+                            random_person_is_dead = False
+                    self.interaction(person, self.population[random_person_index])
 
     def interaction(self, person, random_person):
         '''This method should be called any time two living people are selected for an
@@ -149,8 +159,9 @@ class Simulation(object):
             #     than repro_rate, random_person's ID should be appended to
             #     Simulation object's newly_infected array, so that their .infected
             #     attribute can be changed to True at the end of the time step.
-        # TODO: Call slogger method during this method.
-        pass
+        # TODO: Call logger method during this method.
+        if random_person.infection == None: # if not infect, person is healthy therefore set as infected
+            random_person.infection = person.infection # spreads infections
 
     def _infect_newly_infected(self):
         ''' This method should iterate through the list of ._id stored in self.newly_infected
