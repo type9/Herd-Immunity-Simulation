@@ -85,11 +85,10 @@ class Simulation(object):
             Returns:
                 bool: True for simulation should continue, False if it should end.
         '''
-        # TODO: Complete this helper method.  Returns a Boolean.
         for peson in self.population:
-            if person.is_alive == True:
+            if person.is_alive == True: # checks if anyone is alive, if True it returns true.
                 return True
-        return False
+        return False # otherwise everyone is dead so it returns false.
 
     def run(self):
         ''' This method should run the simulation until all requirements for ending
