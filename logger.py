@@ -46,14 +46,14 @@ class Logger(object):
         # exactly what happened in the interaction and create a String, and write to your logfile.
         log_file = open(self.file_name, "a+")
         if did_infect:
-            log_file.write(f"{person._id} infects {random_person._id}")
+            log_file.write(f"{person._id} infects {random_person._id}\n")
         else:
             reason = ""
             if person.is_vaccinated:
                 reason = 'they are vaccinated.'
             else:
                 reason = 'they are already sick.'
-            log_file.write(f"{person._id} didn't infect {random_person._id} because {reason}")
+            log_file.write(f"{person._id} didn't infect {random_person._id} because {reason}\n")
         log_file.close()
 
     def log_infection_survival(self, person, did_die_from_infection):
@@ -66,6 +66,11 @@ class Logger(object):
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile
+        log_file = open(self.file_name, "a+")
+        if person.did_survive_infection():
+            log_file.write(f'{person._id} died from infection\n')
+        elif not person.did_survive_infection() or not did_die_from_infection:
+            log_file.write(f'{person._id} survived the infection\n')
         pass
 
     def log_time_step(self, time_step_number):
