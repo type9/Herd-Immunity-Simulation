@@ -10,11 +10,8 @@ class Logger(object):
     # test them one by one as you write your class.
 
     def __init__(self, file_name):
-<<<<<<< HEAD
-=======
         # TODO:  Finish this initialization method. The file_name passed should be the
         # full file name of the file that the logs will be written to.
->>>>>>> bfaa8df60afd84b112765d6c182acf6f5cce68e2
         self.file_name = file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
