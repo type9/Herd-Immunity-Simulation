@@ -1,3 +1,6 @@
+from person import Person
+from virus import Virus
+
 class Logger(object):
     ''' Utility class responsible for logging all interactions during the simulation. '''
     # TODO: Write a test suite for this class to make sure each method is working
@@ -25,6 +28,7 @@ class Logger(object):
         # event logged ends up on a separate line!
         log_file = open(self.file_name, 'a+')
         log_file.write(f'{pop_size} - {vacc_percentage} - {virus_name} - {mortality_rate} - {basic_repro_num}')
+        log_file.close()
         pass
 
     def log_interaction(self, person, random_person, random_person_sick=None,
@@ -42,7 +46,17 @@ class Logger(object):
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
-        pass
+        log_file = open(self.file_name, "a+")
+        if did_infect:
+            log_file.write(f"{person._id} infects {random_person._id}")
+        else:
+            reason = ""
+            if person.is_vaccinated:
+                reason = 'they are vaccinated.'
+            else:
+                reason = 'they are already sick.'
+            log_file.write(f"{person._id} didn't infect {random_person._id} because {reason}")
+        log_file.close()
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every
@@ -78,4 +92,6 @@ class Logger(object):
 
 
 log = Logger('log.txt')
-log.write_metadata(200, 10, 'VIRUSNAME', 0.5, 0.4)
+person = Person(1, True, Virus("HIV", 0.8, 0.3))
+random_person = Person(2, True, Virus("HIV", 0.8, 0.3))
+log.log_interaction(person, random_person)
