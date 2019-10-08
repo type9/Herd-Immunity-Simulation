@@ -37,20 +37,20 @@ class Person(object):
 def test_vacc_person_instantiation():
     # create some people to test if our init method works as expected
     person1 = Person(1, True)
-    assert person._id == 1
-    assert person.is_alive is True
-    assert person.is_vaccinated is True
-    assert person.infection is None
+    assert person1._id == 1
+    assert person1.is_alive is True
+    assert person1.is_vaccinated is True
+    assert person1.infection is None
     person2 = Person(1, True)
-    assert person._id == 2
-    assert person.is_alive is True
-    assert person.is_vaccinated is True
-    assert person.infection is None
+    assert person2._id == 2
+    assert person2.is_alive is True
+    assert person2.is_vaccinated is True
+    assert person2.infection is None
     person3 = Person(1, True)
-    assert person._id == 3
-    assert person.is_alive is True
-    assert person.is_vaccinated is True
-    assert person.infection is None
+    assert person3._id == 3
+    assert person3.is_alive is True
+    assert person3.is_vaccinated is True
+    assert person3.infection is None
 
 
 def test_not_vacc_person_instantiation():
