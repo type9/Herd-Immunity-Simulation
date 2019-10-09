@@ -67,9 +67,9 @@ class Logger(object):
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile
         log_file = open(self.file_name, "a+")
-        if person.did_survive_infection():
+        if did_die_from_infection:
             log_file.write(f'{person._id} died from infection\n')
-        elif not person.did_survive_infection() or not did_die_from_infection:
+        elif not did_die_from_infection or not did_die_from_infection:
             log_file.write(f'{person._id} survived the infection\n')
         pass
 
