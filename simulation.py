@@ -5,7 +5,7 @@ from logger import Logger
 from virus import Virus
 
 TOTAL_INTERACTIONS = 100
-DEBUG = True
+DEBUG = False
 
 class Simulation(object):
     ''' Main class that will run the herd immunity simulation program.
@@ -225,7 +225,6 @@ class Simulation(object):
         if DEBUG:
             print(f'Newly infected list with {len(self.newly_infected)}')
         for i in range(len(self.newly_infected)):
-            print(self.newly_infected[i])
             self.population[self.newly_infected[i]].infection = self.virus
         self.newly_infected = list()
 
@@ -244,7 +243,7 @@ if __name__ == "__main__":
     else:
         initial_infected = 1
 
-    virus = Virus(name, repro_rate, mortality_rate)
-    sim = Simulation(pop_size, vacc_percentage, initial_infected, virus)
+    virus = Virus(virus_name, repro_num, mortality_rate)
+    sim = Simulation(pop_size, vacc_percentage, virus, initial_infected)
 
     sim.run()
